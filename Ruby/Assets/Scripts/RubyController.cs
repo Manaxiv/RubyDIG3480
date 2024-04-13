@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class RubyController : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class RubyController : MonoBehaviour
 	public GameObject projectilePrefab;
 	public GameOverScreen gameOverScreen;
 	public GameObject victoryScreen;
+	public GameObject healPrefab;
+	public GameObject hurtPrefab;
 
 	public int health { get { return currentHealth; } }
 	int currentHealth;
@@ -94,6 +97,14 @@ public class RubyController : MonoBehaviour
 			victoryScreen.SetActive(true);
 			Time.timeScale = 0.0f;
 		}
+
+		if (currentHealth == 0 || !GameObject.FindGameObjectWithTag("Broken"))
+		{
+				if (Input.GetKeyDown(KeyCode.R))
+				{
+					SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+				}
+		}
 	}
 
 	void FixedUpdate()
@@ -114,12 +125,16 @@ public class RubyController : MonoBehaviour
 
 			isInvincible = true;
 			invincibleTimer = timeInvincible;
-
+			GameObject hurtVFX = Instantiate(hurtPrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
 			animator.SetTrigger("Hit");
 			PlaySound(hitSound);
 		}
+		else if (amount > 0)
+    {
+			GameObject healVFX = Instantiate(healPrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+		}
 
-		currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+        currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
 
 		if (currentHealth == 0)
 		{
