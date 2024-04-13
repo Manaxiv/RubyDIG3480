@@ -9,6 +9,8 @@ public class RubyController : MonoBehaviour
 	public int maxHealth = 5;
 
 	public GameObject projectilePrefab;
+	public GameOverScreen gameOverScreen;
+	public GameObject victoryScreen;
 
 	public int health { get { return currentHealth; } }
 	int currentHealth;
@@ -35,6 +37,8 @@ public class RubyController : MonoBehaviour
 		currentHealth = maxHealth;
 
 		audioSource = GetComponent<AudioSource>();
+
+		Time.timeScale = 1.0f;
 	}
 
 	public void PlaySound(AudioClip clip)
@@ -84,6 +88,12 @@ public class RubyController : MonoBehaviour
 				}
 			}
 		}
+
+		if (!GameObject.FindGameObjectWithTag("Broken"))
+		{
+			victoryScreen.SetActive(true);
+			Time.timeScale = 0.0f;
+		}
 	}
 
 	void FixedUpdate()
@@ -111,6 +121,12 @@ public class RubyController : MonoBehaviour
 
 		currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
 
+		if (currentHealth == 0)
+		{
+			GameOver();
+			Time.timeScale = 0.0f;
+		}
+
 		UIHealthBar.instance.SetValue(currentHealth / (float)maxHealth);
 	}
 
@@ -124,5 +140,10 @@ public class RubyController : MonoBehaviour
 		animator.SetTrigger("Launch");
 		
 		PlaySound(throwSound);
+	}
+
+	void GameOver()
+	{
+		gameOverScreen.Setup(GameObject.FindGameObjectsWithTag("Fixed").Length);
 	}
 }

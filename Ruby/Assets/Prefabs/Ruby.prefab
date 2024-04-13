@@ -104,6 +104,8 @@ MonoBehaviour:
   speed: 3
   maxHealth: 5
   projectilePrefab: {fileID: 1174269932214497351, guid: 2f332107f6c6ff7469daa7b0b860b265, type: 3}
+  gameOverScreen: {fileID: 0}
+  victoryScreen: {fileID: 0}
   timeInvincible: 2
   throwSound: {fileID: 8300000, guid: b2edfd40873655249ba0e01a5cf705be, type: 3}
   hitSound: {fileID: 8300000, guid: 9b1bb1f450b7d444fa4a8019d13519a7, type: 3}
