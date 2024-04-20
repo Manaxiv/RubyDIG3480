@@ -94,8 +94,7 @@ public class RubyController : MonoBehaviour
 
 		if (!GameObject.FindGameObjectWithTag("Broken"))
 		{
-			victoryScreen.SetActive(true);
-			Time.timeScale = 0.0f;
+			Victory();
 		}
 
 		if (currentHealth == 0 || !GameObject.FindGameObjectWithTag("Broken"))
@@ -160,5 +159,11 @@ public class RubyController : MonoBehaviour
 	void GameOver()
 	{
 		gameOverScreen.Setup(GameObject.FindGameObjectsWithTag("Fixed").Length);
+	}
+
+	void Victory()
+	{
+			victoryScreen.SetActive(true);
+			Time.timeScale = 0.0f;
 	}
 }

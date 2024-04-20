@@ -127,6 +127,7 @@ MonoBehaviour:
   vertical: 0
   changeTime: 3
   smokeEffect: {fileID: 7993142722568368715}
+  fixedSound: {fileID: 8300000, guid: e7fa1971a86d60945bb64585c0ac14d5, type: 3}
 --- !u!61 &-24192256788974023
 BoxCollider2D:
   m_ObjectHideFlags: 0
