@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class NonPlayerCharacter : MonoBehaviour
 {
@@ -8,8 +9,17 @@ public class NonPlayerCharacter : MonoBehaviour
 	public GameObject dialogBox;
 	float timerDisplay;
 
+	AudioSource audioSource; 
+	public AudioClip greeting;
+
+	public void PlaySound(AudioClip clip)
+	{
+		audioSource.PlayOneShot(clip);
+	}
+
 	void Start()
 	{
+		audioSource = GetComponent<AudioSource>(); 
 		dialogBox.SetActive(false);
 		timerDisplay = -1.0f;
 	}
@@ -30,5 +40,10 @@ public class NonPlayerCharacter : MonoBehaviour
 	{
 		timerDisplay = displayTime;
 		dialogBox.SetActive(true);
+
+		if(greeting != null)
+        {
+			PlaySound(greeting);
+		}
 	}
 }

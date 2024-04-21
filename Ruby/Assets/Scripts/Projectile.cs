@@ -6,6 +6,8 @@ public class Projectile : MonoBehaviour
 {
 	Rigidbody2D rigidbody2d;
 
+	public GameObject blast;
+
 	void Awake()
 	{
 		rigidbody2d = GetComponent<Rigidbody2D>();
@@ -27,10 +29,17 @@ public class Projectile : MonoBehaviour
 	private void OnCollisionEnter2D(Collision2D other)
 	{
 		EnemyController e = other.collider.GetComponent<EnemyController>();
+		BoxBreaker b = other.collider.GetComponent<BoxBreaker>();
 		if (e != null)
 		{
 			e.Fix();
 		}
+        if (b != null)
+        {
+			b.Shatter();
+        }
+
+		GameObject projectileObject = Instantiate(blast, rigidbody2d.position, Quaternion.identity);
 
 		Destroy(gameObject);
 	}
